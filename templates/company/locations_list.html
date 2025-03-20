@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مواقع الشركة</title>
+</head>
+<body>
+
+    <h2>مواقع الشركة</h2>
+    <table border="1">
+        <tr>
+            <th>اسم الموقع</th>
+            <th>خط العرض</th>
+            <th>خط الطول</th>
+            <th>نصف القطر</th>
+        </tr>
+        {% for location in locations %}
+        <tr>
+            <td>{{ location.name }}</td>
+            <td>{{ location.latitude }}</td>
+            <td>{{ location.longitude }}</td>
+            <td>{{ location.radius }} متر</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{% url 'add_location' %}">إضافة موقع جديد</a>
+
+</body>
+</html>

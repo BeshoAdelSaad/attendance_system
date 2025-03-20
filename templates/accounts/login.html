@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>تسجيل الدخول</title>
+
+</head>
+<body>
+    {% if not request.user.is_authenticated %}
+    <a href="{% url 'login' %}">تسجيل الدخول</a>
+    {% endif %}
+
+    <h2>تسجيل الدخول</h2>
+    <form action="{% url 'login_view' %}" id="login-form" method="post">
+        {% csrf_token %}
+        <input type="hidden" value="" name="longitude" id="longitude">
+        <input type="hidden" value="" name="latitude" id="latitude">
+        <input type="text" name="username" placeholder="اسم المستخدم">
+        <input type="password" name="password" placeholder="كلمة المرور">
+
+        <input type="submit" value="Submit" id="submit-button">
+    </form>
+
+<script src="{% static 'js/jQuery v3.7.1.js' %}"></script>
+<script>
+
+    $('#submit-button').on('click', function(event){
+        event.preventDefault();
+        
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) { // نجاح الحصول على الموقع
+                    let latitude = position.coords.latitude;
+                    let longitude = position.coords.longitude;
+
+                    console.log("Latitude:", latitude);
+                    console.log("Longitude:", longitude);
+
+                    // إدخال الإحداثيات في الحقول المخفية
+                    $('#latitude').val(latitude);
+                    $('#longitude').val(longitude);
+
+                     // تأخير الإرسال حتى يتم تحديث القيم
+                    setTimeout(function() {
+                        $('#login-form').submit();
+                    }, 500);
+                },
+                function(error) { // فشل الحصول على الموقع
+                    alert("تعذر الحصول على موقعك. الرجاء السماح بالوصول إلى الموقع.");
+                }
+            );
+        } else {
+            alert("الموقع غير مدعوم في هذا المتصفح.");
+        }
+    })
+</script>
+</body>
+</html>

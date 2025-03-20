@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<h2>إدارة الشركات</h2>
+<a href="{% url 'add_company' %}">إضافة شركة جديدة</a>
+<table border="1">
+    <tr>
+        <th>اسم الشركة</th>
+        <th>إجراءات</th>
+    </tr>
+    {% for company in companies %}
+    <tr>
+        <td>{{ company.name }}</td>
+        <td>
+            <a href="{% url 'edit_company' company.id %}">تعديل</a> |
+            <a href="{% url 'delete_company' company.id %}">حذف</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

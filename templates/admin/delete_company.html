@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<h2>حذف شركة</h2>
+<p>هل أنت متأكد أنك تريد حذف الشركة {{ company.username }}؟</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">نعم، احذف</button>
+    <a href="{% url 'company_list' %}">إلغاء</a>
+</form>
+
+</body>
+</html>
